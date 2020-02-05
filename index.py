@@ -12,14 +12,19 @@ def printpage(url):
 
 # will step threw and print everything with route example: https://libreboot.org/docs/
 def printContent(url):
-    # while True:
     req = Request(url, headers={'User-Agent': 'chrome/79'})
     html = urlopen(req).read()
     soup = BeautifulSoup(html, 'html.parser')
     links = soup.find_all('a', href=True)
-    print(links)
+    print(links) #will be used for testing instead of pdfkit
+    for link in links
+        if True : #figure out what a valid link and think of a way to prevent duplicates
+            printcontent( url + link)
 
-#this will prompt the user to select th content they want
+def testLink(link):
+    #make sure link
+
+#this will prompt the user to select the content they want 
 def custom():
     print("custom")
 
