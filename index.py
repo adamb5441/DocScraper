@@ -17,15 +17,17 @@ def printContent(url):
     soup = BeautifulSoup(html, 'html.parser')
     links = soup.find_all('a', href=True)
     print(links) #will be used for testing instead of pdfkit
-    for link in links
+    for link in links :
+        print(link["href"])
         if True : #figure out what a valid link and think of a way to prevent duplicates
-            printcontent( url + link)
+            printContent( url + link["href"] )
+    return True
 
-def testLink(link):
+# def testLink(link):
     #make sure link
 
 #this will prompt the user to select the content they want 
-def custom():
-    print("custom")
+# def custom():
+#     print("custom")
 
 printContent(url4)
