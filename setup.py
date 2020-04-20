@@ -1,6 +1,6 @@
 
 from setuptools import setup, find_packages
-from web record.core.version import get_version
+from webrec.core.version import get_version
 
 VERSION = get_version()
 
@@ -9,9 +9,9 @@ LONG_DESCRIPTION = f.read()
 f.close()
 
 setup(
-    name='web record',
+    name='webrec',
     version=VERSION,
-    description='Store web documentation for future use.',
+    description='Webpage to PDF',
     long_description=LONG_DESCRIPTION,
     long_description_content_type='text/markdown',
     author='Adam Brown',
@@ -19,10 +19,10 @@ setup(
     url='https://github.com/adamb5441/Web-Record',
     license='MIT',
     packages=find_packages(exclude=['ez_setup', 'tests*']),
-    package_data={'web record': ['templates/*']},
+    package_data={'webrec': ['templates/*']},
     include_package_data=True,
     entry_points="""
         [console_scripts]
-        web record = web record.main:main
+        webrec = webrec.main:main
     """,
 )

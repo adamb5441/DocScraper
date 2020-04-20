@@ -1,19 +1,19 @@
 
 from cement import App, TestApp, init_defaults
 from cement.core.exc import CaughtSignal
-from .core.exc import WebScraperError
+from .core.exc import WebRecordError
 from .controllers.base import Base
 
 # configuration defaults
-CONFIG = init_defaults('web record')
-CONFIG['web record']['foo'] = 'bar'
+CONFIG = init_defaults('webrec')
+CONFIG['webrec']['foo'] = 'bar'
 
 
-class WebScraper(App):
+class WebRecord(App):
     """Web Record primary application."""
 
     class Meta:
-        label = 'web record'
+        label = 'webrec'
 
         # configuration defaults
         config_defaults = CONFIG
@@ -46,15 +46,15 @@ class WebScraper(App):
         ]
 
 
-class WebScraperTest(TestApp,WebScraper):
-    """A sub-class of WebScraper that is better suited for testing."""
+class WebRecordTest(TestApp,WebRecord):
+    """A sub-class of WebRecord that is better suited for testing."""
 
     class Meta:
-        label = 'web record'
+        label = 'webrec'
 
 
 def main():
-    with WebScraper() as app:
+    with WebRecord() as app:
         try:
             app.run()
 
@@ -66,8 +66,8 @@ def main():
                 import traceback
                 traceback.print_exc()
 
-        except WebScraperError as e:
-            print('WebScraperError > %s' % e.args[0])
+        except WebRecordError as e:
+            print('WebRecordError > %s' % e.args[0])
             app.exit_code = 1
 
             if app.debug is True:

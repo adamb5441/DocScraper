@@ -1,4 +1,4 @@
 
-class WebScraperError(Exception):
+class WebRecordError(Exception):
     """Generic errors."""
     pass

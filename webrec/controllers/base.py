@@ -4,7 +4,7 @@ from cement.utils.version import get_version_banner
 from ..core.version import get_version
 
 VERSION_BANNER = """
-Store web documentation for future use. %s
+Webpage to PDF %s
 %s
 """ % (get_version(), get_version_banner())
 
@@ -14,12 +14,12 @@ class Base(Controller):
         label = 'base'
 
         # text displayed at the top of --help output
-        description = 'Store web documentation for future use.'
+        description = 'Webpage to PDF'
 
         # text displayed at the bottom of --help output
-        epilog = 'Usage: web record command1 --foo bar'
+        epilog = 'Usage: webrec command1 --foo bar'
 
-        # controller level arguments. ex: 'web record --version'
+        # controller level arguments. ex: 'webrec --version'
         arguments = [
             ### add a version banner
             ( [ '-v', '--version' ],
@@ -37,7 +37,7 @@ class Base(Controller):
     @ex(
         help='example sub command1',
 
-        # sub-command level arguments. ex: 'web record command1 --foo bar'
+        # sub-command level arguments. ex: 'webrec command1 --foo bar'
         arguments=[
             ### add a sample foo option under subcommand namespace
             ( [ '-f', '--foo' ],
@@ -47,6 +47,18 @@ class Base(Controller):
         ],
     )
     def command1(self):
+        """Example sub-command."""
+
+        data = {
+            'foo' : 'bar',
+        }
+
+        ### do something with arguments
+        if self.app.pargs.foo is not None:
+            data['foo'] = self.app.pargs.foo
+
+        self.app.render(data, 'command1.jinja2')
+    def command2(self):
         """Example sub-command."""
 
         data = {

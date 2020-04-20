@@ -1,4 +1,4 @@
-# Store web documentation for future use.
+# Webpage to PDF
 
 ## Installation
 
@@ -24,9 +24,9 @@ $ make virtualenv
 $ source env/bin/activate
 
 
-### run web record cli application
+### run webrec cli application
 
-$ web record --help
+$ webrec --help
 
 
 ### run pytest / coverage
@@ -65,5 +65,5 @@ and can be built with the included `make` helper:
 ```
 $ make docker
 
-$ docker run -it web record --help
+$ docker run -it webrec --help
 ```

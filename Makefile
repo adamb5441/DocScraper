@@ -4,7 +4,7 @@ clean:
 	find . -name '*.py[co]' -delete
 
 virtualenv:
-	virtualenv --prompt '|> webrecord <| ' env
+	virtualenv --prompt '|> webrec <| ' env
 	env/bin/pip install -r requirements-dev.txt
 	env/bin/python setup.py develop
 	@echo
@@ -14,13 +14,13 @@ virtualenv:
 test:
 	python -m pytest \
 		-v \
-		--cov=web record \
+		--cov=webrec \
 		--cov-report=term \
 		--cov-report=html:coverage-report \
 		tests/
 
 docker: clean
-	docker build -t web record:latest .
+	docker build -t webrec:latest .
 
 dist: clean
 	rm -rf dist/*
