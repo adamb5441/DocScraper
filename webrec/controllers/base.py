@@ -2,7 +2,14 @@
 from cement import Controller, ex
 from cement.utils.version import get_version_banner
 from ..core.version import get_version
+from urllib.request import Request, urlopen
+from bs4 import BeautifulSoup
+import pdfkit
 
+url = "https://libreboot.org/docs"
+url2 = "https://vuetifyjs.com/en/"
+url3 = "https://nodejs.org/en/docs/"
+url4 = "https://docs.microsoft.com/en-us/dotnet/csharp/"
 VERSION_BANNER = """
 Webpage to PDF %s
 %s
@@ -46,27 +53,22 @@ class Base(Controller):
                 'dest' : 'foo' } ),
         ],
     )
-    def command1(self):
-        """Example sub-command."""
-
-        data = {
-            'foo' : 'bar',
-        }
-
-        ### do something with arguments
-        if self.app.pargs.foo is not None:
-            data['foo'] = self.app.pargs.foo
-
-        self.app.render(data, 'command1.jinja2')
-    def command2(self):
-        """Example sub-command."""
-
-        data = {
-            'foo' : 'bar',
-        }
-
-        ### do something with arguments
-        if self.app.pargs.foo is not None:
-            data['foo'] = self.app.pargs.foo
-
+    def printUrl(self):
+        pdfkit.from_url(url, 'out.pdf')
+        # self.app.render(data, 'command1.jinja2')
+    
+    def printFromRoute(self):
+        def printContent(url):
+            req = Request(url, headers={'User-Agent': 'chrome/79'})
+            html = urlopen(req).read()
+            soup = BeautifulSoup(html, 'html.parser')
+            links = soup.find_all('a', href=True)
+            print(links) #will be used for testing instead of pdfkit
+            for link in links :
+                print(link["href"])
+                if True : #figure out what a valid link and think of a way to prevent duplicates
+                    printContent( url + link["href"] )
+            return True
+        
+            
         self.app.render(data, 'command1.jinja2')
