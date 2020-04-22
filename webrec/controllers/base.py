@@ -46,15 +46,18 @@ class Base(Controller):
 
         # sub-command level arguments. ex: 'webrec command1 --foo bar'
         arguments=[
-            ### add a sample foo option under subcommand namespace
-            ( [ '-f', '--foo' ],
-              { 'help' : 'notorious foo option',
-                'action'  : 'store',
-                'dest' : 'foo' } ),
+            ( ['location'],
+              {'help': 'todo item text',
+               'action': 'store' }  ),
         ],
     )
     def printUrl(self):
-        pdfkit.from_url(url, 'out.pdf')
+        print(self.pargs.app.location)
+        if self.pargs.app.location:
+            location = self.pargs.app.location
+        else:
+            location = '/out'
+        pdfkit.from_url(url, location)
         # self.app.render(data, 'command1.jinja2')
     
     def printFromRoute(self):
