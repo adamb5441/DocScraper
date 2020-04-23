@@ -19,7 +19,6 @@ Webpage to PDF %s
 class Base(Controller):
     class Meta:
         label = 'base'
-
         # text displayed at the top of --help output
         description = 'Webpage to PDF'
 
@@ -52,13 +51,15 @@ class Base(Controller):
         ],
     )
     def printUrl(self):
-        print(self.pargs.app.location)
-        if self.pargs.app.location:
-            location = self.pargs.app.location
+        print(self.app.pargs.location)
+        if len(self.app.pargs.location) > 0:
+             location = self.app.pargs.location
         else:
             location = '/out'
-        pdfkit.from_url(url, location)
-        # self.app.render(data, 'command1.jinja2')
+        try:
+            pdfkit.from_url(url, str(location))
+        except:
+            print("Failed to print check file path.")
     
     def printFromRoute(self):
         def printContent(url):
