@@ -28,9 +28,13 @@ class Base(Controller):
         # controller level arguments. ex: 'webrec --version'
         arguments = [
             ### add a version banner
-            ( [ '-v', '--version' ],
-              { 'action'  : 'version',
-                'version' : VERSION_BANNER } ),
+            # ( 
+            #   [ '-v', '--version' ],
+            #   { 'action'  : 'version',
+            #     'version' : VERSION_BANNER } ),
+            (
+              [ '-l', '--location'],
+            )
         ]
 
 
@@ -45,21 +49,33 @@ class Base(Controller):
 
         # sub-command level arguments. ex: 'webrec command1 --foo bar'
         arguments=[
-            ( ['location'],
+            ( ['url'],
               {'help': 'todo item text',
                'action': 'store' }  ),
         ],
     )
     def printUrl(self):
-        print(self.app.pargs.location)
-        if len(self.app.pargs.location) > 0:
-             location = self.app.pargs.location
-        else:
-            location = '/out'
-        try:
+        if len(self.app.pargs.url) > 0:
+            url = self.app.pargs.url
+
+            if len(self.app.pargs.location) > 0:
+                 location = self.app.pargs.location
+            else:
+                location = './out'
+
             pdfkit.from_url(url, str(location))
-        except:
-            print("Failed to print check file path.")
+        else:
+            print('a url is required')
+
+        # print(self.app.pargs)
+        # if len(self.app.pargs.location) > 0:
+        #      location = self.app.pargs.location
+        # else:
+        #     location = '/out'
+        # try:
+        #     pdfkit.from_url(url, str(location))
+        # except:
+        #     print("Failed to print check file path.")
     
     def printFromRoute(self):
         def printContent(url):
